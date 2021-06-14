@@ -10,18 +10,18 @@ const Contents = () => {
 
 	useEffect(() => {
 		const fetchEvents = async () => {
-			const res = await axios.get(
-				"https://api.covid19api.com/total/dayone/country/kr"
-			);
-			makeData(res.data);
-		};
-		const makeData = (items) => {
 			if (isFirst) {
 				isFirst = false;
 			} else {
 				return false;
 			}
 
+			const res = await axios.get(
+				"https://api.covid19api.com/total/dayone/country/kr"
+			);
+			makeData(res.data);
+		};
+		const makeData = (items) => {
 			// items.forEach((item) => console.log(item));
 			const arr = items.reduce((acc, cur) => {
 				const currentDate = new Date(cur.Date);
