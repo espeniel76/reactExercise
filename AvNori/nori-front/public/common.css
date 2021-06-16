@@ -1,0 +1,98 @@
+.ct-btn.white {
+    color: #666;
+    border: 2px solid #c6c6c6;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
+    padding: 2px 8px 2px 8px;
+    border-radius: 2px;
+}
+
+.ct-btn.down {
+    color: #FFF1F1;
+    border: 2px solid #FFA0A0;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    background: linear-gradient(to bottom, #FF3D3D 40%, #FF0000 100%);
+    padding: 2px 8px 2px 8px;
+    border-radius: 3px;
+}
+
+.ct-btn.exclude {
+    color: #828282;
+    border: 2px solid #FFC0C0;
+    border-bottom-color: #CFCCCC;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    background: linear-gradient(to bottom, #E0E0E0 40%, #CFCCCC 100%);
+    padding: 2px 8px 2px 8px;
+    border-radius: 2px;
+}
+
+.ct-btn.view {
+    color: #000;
+    border: 3px solid #28D200;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    background: linear-gradient(to bottom, #64FF73 40%, #00FF18 100%);
+    font-weight: bold;
+    padding: 2px 8px 2px 8px;
+    border-radius: 4px;
+}
+
+.ct-btn.search {
+    color: #fff;
+    border: 3px solid #C3B7FF;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    background: linear-gradient(to bottom, #A290FF 40%, #8870FF 100%);
+    font-weight: bold;
+    padding: 2px 8px 2px 8px;
+    border-radius: 4px;
+}
+
+li {
+    max-width: 600px;
+    margin: 10px;
+}
+
+span,
+div,
+select,
+input {
+    /* font-family: 'Malgun gothic'; */
+    font-family: 맑은고딕;
+    font-size: 9pt;
+}
+
+select {
+    height: 25px;
+}
+
+div,
+ul {
+    text-align: center;
+}
+
+#process_img {
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+li {
+    display: inline-block;
+    max-width: 600px;
+    margin: 10px;
+}
+
+.title {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+}
