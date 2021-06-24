@@ -1,43 +1,39 @@
 /**
  * 이 페이지 주요 issue
  * 1. ajax 으로 받은 데이터를 전역으로 이용하려면?
- * 2. 랜더링이 끝난 시점은?
+ * 2. 랜더링이 끝난 시점은? -> 지가 알아서 하네...
  * 3. select 에 option 을 동적으로 넣는 방법은?
  */
 
-
 import React, { Component, MouseEvent } from 'react'
-// import { Card, Badge, Button } from 'react-bootstrap';
 import Select from 'react-select';
-// import makeAnimated from 'react-select/animated';
 import { ajax } from '../modules/ajax';
-interface Category {
-	seq_category_info: string,
-	category: string,
-	regist_date: string,
-	count: string
-}
-interface CategoryList {
-	list: Category[]
-}
-let listCategories: CategoryList;
-interface Option {
-	value: string,
-	label: string
-}
-let optionCategories: Option[] = [];
-(async () => {
-	listCategories = await ajax.post({ data: { type: "GET_CATEGORY" } });
-	listCategories.list.forEach(e => {
-		optionCategories.push({
-			value: e.seq_category_info,
-			label: e.category
-		})
-	});
-	console.log(optionCategories);
+import { COMMON } from '../interface/common';
+import { CATEGORY } from '../interface/category';
 
+let optionListSizes: COMMON.IOption[] = [];
+let optionCategories: COMMON.IOption[] = [];
+let listCategories: CATEGORY.IList;
+
+// initializer...
+// any other better methods...?
+(() => {
+	for (let i: number = 0; i < 200; i++) {
+		optionListSizes.push({ value: i.toString(), label: `${i} 개 출력` })
+	}
+
+	optionCategories.push({ value: "0", label: "미분류" });
+	optionCategories.push({ value: "9999", label: "분류통합" });
+	(async () => {
+		listCategories = await ajax.post({ data: { type: "GET_CATEGORY" } });
+		listCategories.list.forEach(e => {
+			optionCategories.push({
+				value: e.seq_category_info,
+				label: e.category
+			})
+		});
+	})();
 })();
-
 
 export class Header extends Component {
 	handleClick(event: MouseEvent) {
@@ -47,16 +43,12 @@ export class Header extends Component {
 	render() {
 		return (
 			<div>
-				<Select options={optionCategories}></Select>
 				페이지 당
-				<select id="select_list_size" className="ct-btn white">
-				</select> 개 출력
+				<Select options={optionListSizes}></Select>
+
 				<input type="checkbox" id="like" /> 좋아요
 				<input type="checkbox" id="favorite" /> 최고에요
-				<select id="main_category" className="ct-btn white" >
-					<option value="0">미분류</option>
-					<option value="99999">분류통합</option>
-				</select>
+				<Select options={optionCategories}></Select>
 				<select id="order_by" className="ct-btn white">
 					<option value="image_down_path">시간순</option>
 					<option value="seq_mov_info">인덱스</option>
