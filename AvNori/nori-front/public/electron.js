@@ -13,6 +13,7 @@ var createWindow = function () {
         resizable: true,
         fullscreen: false,
         fullscreenable: true,
+        autoHideMenuBar: true,
         webPreferences: {
             // node환경처럼 사용하기
             nodeIntegration: true,
