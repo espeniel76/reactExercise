@@ -8,50 +8,34 @@
 
 import React, { Component, MouseEvent } from 'react'
 // import { Card, Badge, Button } from 'react-bootstrap';
-// import Select from 'react-select';
+import Select from 'react-select';
 // import makeAnimated from 'react-select/animated';
 import { ajax } from '../modules/ajax';
-// import axios from "axios";
-
-// const optionToppings = [
-//     { value: 'extra-cheese', label: 'extra Cheese' },
-//     { value: 'onions', label: 'Onions' },
-//     { value: 'bacon', label: 'Bacon' },
-//     { value: 'basil', label: 'Basil' },
-// ];
-// const optionSize = [
-//     { value: '9', label: 'Small - 9 Inches' },
-//     { value: '12', label: 'Medium - 12 Inches' },
-//     { value: '14', label: 'Large - 14 Inches' },
-//     { value: '18', label: 'Extra-large - 18 Inches' },
-// ];
-// let data: any = {
-//     is_favorite: "F",
-//     is_like: "F",
-//     list_size: 200,
-//     order_by: "image_down_path",
-//     page_no: 1,
-//     search_field: "file_name",
-//     search_value: "",
-//     seq_category_info: "0",
-//     sort_by: "ASC",
-//     type: "NORMAL_LIST"
-// };
-let listCategories: object = {};
+interface Category {
+	seq_category_info: string,
+	category: string,
+	regist_date: string,
+	count: string
+}
+interface CategoryList {
+	list: Category[]
+}
+let listCategories: CategoryList;
+interface Option {
+	value: string,
+	label: string
+}
+let optionCategories: Option[] = [];
 (async () => {
-	// let res = await ajax.post({
-	//     url: 'http://localhost/static/interface.php',
-	//     data: data
-	// });
-	// const res = await axios.post(
-	//     "http://localhost/static/interface.php",
-	//     data
-	// );
-
-	// console.log(res);
-
 	listCategories = await ajax.post({ data: { type: "GET_CATEGORY" } });
-	console.log(listCategories);
+	listCategories.list.forEach(e => {
+		optionCategories.push({
+			value: e.seq_category_info,
+			label: e.category
+		})
+	});
+	console.log(optionCategories);
+
 })();
 
 
@@ -63,6 +47,7 @@ export class Header extends Component {
 	render() {
 		return (
 			<div>
+				<Select options={optionCategories}></Select>
 				페이지 당
 				<select id="select_list_size" className="ct-btn white">
 				</select> 개 출력
