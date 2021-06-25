@@ -1,11 +1,10 @@
 /**
  * 이 페이지 주요 issue
  * 1. ajax 으로 받은 데이터를 전역으로 이용하려면?
- * 2. 랜더링이 끝난 시점은? -> 지가 알아서 하네...
- * 3. select 에 option 을 동적으로 넣는 방법은?
- */
+ * 2. 랜더링이 끝난 시점은?
+  */
 
-import React, { Component, MouseEvent } from 'react'
+import React, { Component } from 'react'
 import Select from 'react-select';
 import { ajax } from '../modules/ajax';
 import { COMMON } from '../interface/common';
@@ -15,36 +14,47 @@ let optionListSizes: COMMON.IOption[] = [];
 let optionCategories: COMMON.IOption[] = [];
 let listCategories: CATEGORY.IList;
 
-// initializer...
-// any other better methods...?
-(() => {
-	for (let i: number = 0; i < 200; i++) {
-		optionListSizes.push({ value: i.toString(), label: `${i} 개 출력` })
-	}
-
-	optionCategories.push({ value: "0", label: "미분류" });
-	optionCategories.push({ value: "9999", label: "분류통합" });
-	(async () => {
-		listCategories = await ajax.post({ data: { type: "GET_CATEGORY" } });
-		listCategories.list.forEach(e => {
-			optionCategories.push({
-				value: e.seq_category_info,
-				label: e.category
-			})
-		});
-	})();
-})();
 
 export class Header extends Component {
-	handleClick(event: MouseEvent) {
-		event.preventDefault();
-		alert(event.currentTarget.tagName); // alerts BUTTON
+	state = {
+		selectedOption: null,
+	};
+	handleChange = (selectedOption: any) => {
+		this.setState({ selectedOption }, () =>
+			console.log(`Option selected:`, this.state.selectedOption)
+		);
 	}
 	render() {
+
+		// set page select options
+		for (let i: number = 1; i < 200; i++) {
+			optionListSizes.push({ value: i.toString(), label: `${i} 개 출력` })
+		}
+
+		// set category select options
+		optionCategories.push({ value: "0", label: "미분류" });
+		optionCategories.push({ value: "9999", label: "분류통합" });
+		(async () => {
+			listCategories = await ajax.post({ data: { type: "GET_CATEGORY" } });
+			listCategories.list.forEach(e => {
+				optionCategories.push({
+					value: e.seq_category_info,
+					label: e.category
+				})
+			});
+		})();
+
+		const { selectedOption } = this.state;
+
 		return (
 			<div>
 				페이지 당
-				<Select options={optionListSizes}></Select>
+				<Select
+					value={selectedOption}
+					defaultValue={optionListSizes[19]}
+					options={optionListSizes}
+					onChange={this.handleChange}
+				/>
 
 				<input type="checkbox" id="like" /> 좋아요
 				<input type="checkbox" id="favorite" /> 최고에요
@@ -68,7 +78,7 @@ export class Header extends Component {
 					<option value="title">제목</option>
 				</select>
 				<input type="text" id="search_value" placeholder="검색어" className="ct-btn white" />
-				<input type="button" value="검색" onClick={this.handleClick} className="ct-btn search" />
+				<input type="button" value="검색" className="ct-btn search" />
 			</div>
 		)
 	}
