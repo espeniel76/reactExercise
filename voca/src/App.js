@@ -2,14 +2,23 @@ import "./App.css";
 import Header from "./component/Header";
 import DayList from "./component/DayList";
 import Day from "./component/Day";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
 	return (
-		<div className="App">
-			<Header />
-			<DayList />
-			<Day />
-		</div>
+		<BrowserRouter>
+			<div className="App">
+				<Header />
+				<Switch>
+					<Route exact path="/">
+						<DayList />
+					</Route>
+					<Route path="/day/:day">
+						<Day />
+					</Route>
+				</Switch>
+			</div>
+		</BrowserRouter>
 	);
 }
 
