@@ -14,7 +14,7 @@ export default function DayList() {
 	}
 
 	return (
-		<>
+		<div>
 			<ul className="list_day">
 				{days.map((day) => (
 					<li key={day.id}>
@@ -22,8 +22,6 @@ export default function DayList() {
 					</li>
 				))}
 			</ul>
-			{/* <button onClick={onClick}>{count}</button>
-			<button onClick={onClick2}>Day change</button> */}
-		</>
+		</div>
 	);
 }
