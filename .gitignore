@@ -9,3 +9,6 @@
 .history/
 AvNori/nori-front/node_modules
 voca/node_modules
+vanilla-redux/node_modules
+vanilla-redux/dist
+vanilla-redux/.cache
