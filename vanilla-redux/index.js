@@ -10,18 +10,14 @@ const TOGGLE_SWITCH = "TOGGLE_SWITCH";
 const INCREASE = "INCREASE";
 const DECREASE = "DECREASE";
 
-// 액션 생성 함수
-const toggleSwitch = () => ({ type: TOGGLE_SWITCH });
-const increase = (difference) => ({ type: INCREASE, difference });
-const decrease = () => ({ type: DECREASE });
-
-const initialState = {
-	toggle: false,
-	counter: 0,
-};
-
 // 변화를 일으키는 함수
-function reducer(state = initialState, action) {
+function reducer(
+	state = {
+		toggle: false,
+		counter: 0,
+	},
+	action
+) {
 	// action.type에 따라 다른 작업을 처리함
 	switch (action.type) {
 		case TOGGLE_SWITCH:
@@ -60,12 +56,12 @@ const render = () => {
 store.subscribe(render);
 
 divToggle.onclick = () => {
-	// 액션을 발생 시키는 것
-	store.dispatch(toggleSwitch());
+	store.dispatch({ type: TOGGLE_SWITCH });
 };
 btnIncrease.onclick = () => {
-	store.dispatch(increase(1));
+	const difference = 1;
+	store.dispatch({ type: INCREASE, difference });
 };
 btnDecrease.onclick = () => {
-	store.dispatch(decrease());
+	store.dispatch({ type: DECREASE });
 };
