@@ -23,6 +23,7 @@ const Transition = () => {
 	const PageWendy = <Page image={wendy} />;
 
 	const location = useLocation();
+	console.log(location);
 
 	return (
 		<TransitionGroup className="transition-group">
